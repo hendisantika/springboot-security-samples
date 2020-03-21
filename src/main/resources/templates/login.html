@@ -41,6 +41,11 @@
                    type="password">
         </div>
 
+        <div class="text--center">
+            <label for="login__checkbox" id="login__checkbox_label">remember me?</label>
+            <input id="login__checkbox" name="remember-me" type="checkbox"/>
+        </div>
+
         <div class="text--center" th:if="${param.error}">
             Invalid username and password.
         </div>
