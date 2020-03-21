@@ -76,14 +76,14 @@ class SpringbootSecuritySamplesApplicationTests {
                 .andExpect(content().string(doesNotContainString("This content is only shown to administrators.")));
     }
 
-//    @Test
-//    @WithMockUser(roles = "ADMIN")
-//    public void loginWithRoleAdminThenExpectAdminSpecificContent() throws Exception {
-//        mockMvc.perform(get("/index"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string(containsString("This content is only shown to administrators.")))
-//                .andExpect(content().string(doesNotContainString("This content is only shown to users.")));
-//    }
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void loginWithRoleAdminThenExpectAdminSpecificContent() throws Exception {
+        mockMvc.perform(get("/index"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("This content is only shown to administrators.")))
+                .andExpect(content().string(doesNotContainString("This content is only shown to users.")));
+    }
 
     private Matcher<String> doesNotContainString(String s) {
         return CoreMatchers.not(containsString(s));
