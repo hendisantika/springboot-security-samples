@@ -11,6 +11,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -44,6 +45,13 @@ class SpringbootSecuritySamplesApplicationTests {
     public void accessUnsecuredResourceThenOk() throws Exception {
         mockMvc.perform(get("/css/style.css"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
+        mockMvc.perform(get("/hello"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("**/login"));
     }
 
 }
