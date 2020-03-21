@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,6 +38,12 @@ class SpringbootSecuritySamplesApplicationTests {
 
         mockMvc.perform(login)
                 .andExpect(unauthenticated());
+    }
+
+    @Test
+    public void accessUnsecuredResourceThenOk() throws Exception {
+        mockMvc.perform(get("/css/style.css"))
+                .andExpect(status().isOk());
     }
 
 }
