@@ -43,6 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
+                .and()
+                .rememberMe()
                 .and().csrf().disable(); // we'll enable this in a later blog post
     }
 
