@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -25,6 +26,16 @@ class SpringbootSecuritySamplesApplicationTests {
 
         mockMvc.perform(login)
                 .andExpect(authenticated().withUsername("user"));
+    }
+
+    @Test
+    public void loginWithInvalidUserThenUnauthenticated() throws Exception {
+        FormLoginRequestBuilder login = formLogin()
+                .user("invalid")
+                .password("invalidpassword");
+
+        mockMvc.perform(login)
+                .andExpect(unauthenticated());
     }
 
 }
